@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json("Couldn't save post, "+ error);
   }
 });
 
@@ -74,10 +74,10 @@ router.get("/:id", async (req, res) => {
 });
 
 // get timline posts of following
-router.get("/timeline/all", async (req, res) => {
+router.get("/timeline/:id", async (req, res) => {
   try {
 
-    const currentUser = await User.findById(req.body.userId);
+    const currentUser = await User.findById(req.params.id);
 
     const userPosts = await Post.find({ userId: currentUser._id });
 
@@ -93,7 +93,7 @@ router.get("/timeline/all", async (req, res) => {
     res.json(userPosts.concat(...friendPosts));
 
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json("Couldn't get timeline post, " + error);
   }
 });
 
