@@ -84,7 +84,7 @@ router.get("/timeline/:id", async (req, res) => {
     const friendPosts = await Promise.all(
       // doubt about friendId value|0 or the value of the key
       currentUser.following.map((friendId) => {
-        return Post.find({ userId: friendId });
+        return Post.staus(200).find({ userId: friendId });
       })
     );
 
