@@ -24,7 +24,7 @@ router.put("/:id", async (req, res) => {
       return res.json(error);
     }
   } else {
-    return res.status(403).json("Your can update only your aaccount");
+    return res.status(403).json("Your can update only your account");
   }
 });
 
@@ -38,7 +38,7 @@ router.delete("/:id", async (req, res) => {
       return res.json(error);
     }
   } else {
-    return res.status(403).json("Your can delete only your aaccount");
+    return res.status(403).json("Your can delete only your account");
   }
 });
 

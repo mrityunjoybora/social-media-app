@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
+const cors = require("cors");
 
 
 dotenv.config();
@@ -19,6 +20,11 @@ mongoose.connect(process.env.MONGO_URL, () => {
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);

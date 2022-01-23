@@ -7,9 +7,11 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
+import axios from "axios";
+
+axios.defaults.baseURL = "http://localhost:8000/api";
 
 // Navigate,
-
 function App() {
   return (
     <Router>
