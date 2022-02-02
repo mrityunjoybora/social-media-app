@@ -6,20 +6,32 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
+  Navigate
 } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
 
 // Navigate,
 function App() {
+
+  const { user} = useContext(AuthContext); 
+
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/" /> : <Register />}
+        />
+        <Route
+          path="/profile/:username"
+          element={user ? <Profile /> : <Navigate to="/login" />}
+        />
       </Routes>
     </Router>
   );
