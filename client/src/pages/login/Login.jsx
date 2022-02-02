@@ -35,7 +35,7 @@ export default function Login() {
             FIXME: How to check is color="white" is working or not?
             */}
              
-            <button className="loginButton" disabled={isFetching}>{isFetching? <CircularProgress style={{ color: 'white' }}
+            <button className="loginButton" type="submit" disabled={isFetching}>{isFetching? <CircularProgress style={{ color: 'white' }}
             size="20px"/> : "Log In"} </button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton" disabled={isFetching}>
