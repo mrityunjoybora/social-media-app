@@ -44,6 +44,7 @@ export default function Topbar() {
           </div>
         </div>
         <Link to={`/profile/${user.username}`}>
+          {/* FIXME: Why do we need PF before user.profilePicture? */}
         <img src={user.profilePicture ? PF + user.profilePicture : PF + "/person/noAvatar.png"} alt="" className="topbarImg"/>
         </Link>
       </div>
