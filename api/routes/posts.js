@@ -11,7 +11,7 @@ router.post("/", async (req, res) => {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
   } catch (error) {
-    res.status(500).json("Couldn't save post, "+ error);
+    res.status(500).json("Couldn't save post, " + error);
   }
 });
 
@@ -53,7 +53,12 @@ router.put("/:id/like", async (req, res) => {
     const post = await Post.findById(req.params.id);
     if (!post.likes.includes(req.body.userId)) {
       await post.updateOne({ $push: { likes: req.body.userId } });
-      res.status(200).json("The post has been liked");
+
+      try {
+        res.status(200).json("The post has been liked");
+      } catch (error) {
+        res.send(error);
+      }
     } else {
       await post.updateOne({ $pull: { likes: req.body.userId } });
       res.status(200).json("The post has been disliked");
@@ -76,7 +81,6 @@ router.get("/:id", async (req, res) => {
 // get timeline posts of following
 router.get("/timeline/:id", async (req, res) => {
   try {
-
     const currentUser = await User.findById(req.params.id);
 
     const userPosts = await Post.find({ userId: currentUser._id });
@@ -89,9 +93,8 @@ router.get("/timeline/:id", async (req, res) => {
     );
 
     console.log(friendPosts);
-    
-    res.json(userPosts.concat(...friendPosts));
 
+    res.json(userPosts.concat(...friendPosts));
   } catch (error) {
     res.status(500).json("Couldn't get timeline post, " + error);
   }
