@@ -21,6 +21,7 @@
   border-radius: 50%;
   object-fit: cover;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .shareInput {
@@ -40,6 +41,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+#file{
+  display: none;
 }
 
 .shareOptions{

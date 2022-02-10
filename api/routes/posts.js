@@ -92,7 +92,7 @@ router.get("/timeline/:id", async (req, res) => {
       })
     );
 
-    console.log(friendPosts);
+    // console.log(friendPosts);
 
     res.json(userPosts.concat(...friendPosts));
   } catch (error) {

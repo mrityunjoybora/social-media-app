@@ -8,6 +8,7 @@ export default function Rightbar({ user }) {
   const HomeRightbar = () => {
     
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+    const PFCLIENT = process.env.REACT_APP_PUBLIC_FOLDER_CLIENT;
 
     return (
       <>
