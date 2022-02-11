@@ -33,7 +33,7 @@ app.use("/api/posts", postRoute);
 const storage = multer.diskStorage(
   {
     destination: (req, file, cb) => { 
-      cb(null, "public/images/posts")
+      cb(null, "public/images/user-posts");
     },
 
     filename: (req, file, cb) => { 
