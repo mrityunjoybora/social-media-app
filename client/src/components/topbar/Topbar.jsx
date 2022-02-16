@@ -9,7 +9,7 @@ export default function Topbar() {
   const PFCLIENT = process.env.REACT_APP_PUBLIC_FOLDER_CLIENT;
   const { user } = useContext(AuthContext);
 
-  return (
+  return ( 
     <div className="topbarContainer">
       <div className="topbarLeft">
         <Link to="/" style={{ textDecoration: "none" }}>

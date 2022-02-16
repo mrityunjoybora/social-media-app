@@ -49,7 +49,7 @@ export default function Share() {
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <Link to={`/profile/ + ${user.username}`}>
+          <Link to={"/profile/"+user.username}>
             <img className="shareProfileImg" src={user.profilePicture ? PF + user.profilePicture : PF + "/person/noAvatar.png"} alt="" />
             </Link>
           <input ref={ desc}

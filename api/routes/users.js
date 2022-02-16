@@ -57,6 +57,28 @@ router.get("/", async (req, res) => {
   }
 });
 
+// get friends
+router.get("/friends/:userId", async (req, res)=>{
+  try {
+    const user = await User.findById(req.params.userId);
+    // FIXME: Why should we use promise before map? || Why use await on promise?
+    
+    const friends = await Promise.all(user.following.map((friendId) => {
+      return User.findById(friendId);
+    }));
+    console.log()
+    let friendList = [];
+    friends.map((friend) => {
+      // FIXME: About the array destructuring.
+      const { _id, username, profilePicture } = friend;
+      friendList.push({ _id, username, profilePicture });
+    });
+    res.status(200).json(friendList);
+  } catch (error) {
+    res.status(500).json(error, "Get Friends Error")
+  }
+})
+
 // follow a users
 router.put("/:id/follow", async (req, res) => {
    if (req.body.userId !== req.params.id) {
