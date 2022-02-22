@@ -2,13 +2,59 @@ import "./rightbar.css";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { Add, Remove } from "@material-ui/icons";
+import { Follow, Unfollow } from "../../context/AuthActions";
+
 
 export default function Rightbar({ user }) {
-  const HomeRightbar = () => {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  const [friends, setFriends] = useState([]);
+
+  const { user: currentUser } = useContext(AuthContext);
+
+  const [followed, setFollowed] = useState(false);
+
+
+  useEffect(() => {
+    setFollowed(currentUser.following.includes(user?._id));
+  }, [currentUser, user]);
+
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const res = await axios.get("/users/friends/" + user._id);
+        setFriends(res.data);
+      } catch (error) {}
+    };
+    getFriends();
+  }, [user]);
+
+  const handleClick = async (dispatch) => {
+    try {
+      if (!followed) {
+        await axios.put("/users/" + user._id + "/follow", {
+          userId: currentUser._id,
+        });
+        dispatch(Follow(user._id));
+      } else {
+        await axios.put("/users/" + user._id + "/unfollow", {
+          userId: currentUser._id,
+        });
+
+        dispatch(Unfollow(user._id));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setFollowed(!followed);
+  };
+
+  const HomeRightbar = () => {
     return (
       <>
         <div className="birthdayContainer">
@@ -29,24 +75,14 @@ export default function Rightbar({ user }) {
   };
 
   const ProfileRightbar = () => {
-    const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
-    const [friends, setFriends] = useState([]);
-
-    useEffect(() => {
-      const getFriends = async () => {
-        try {
-          const res = await axios.get("/users/friends/" + user._id);
-          setFriends(res.data);
-        } catch (error) {}
-      };
-      getFriends();
-    }, []);
-
-    
-
     return (
       <>
+        {user.username !== currentUser.username && (
+          <button className="rightbarFollowButton" onClick={handleClick}>
+            {followed ? "Unfollow" : "Follow"}
+            {/* {followed ? <Remove /> : <Add />} */}
+          </button>
+        )}
         <h4 className="rightbarTitle">User information</h4>
         <div className="rightbarInfo">
           <div className="rightbarInfoItem">

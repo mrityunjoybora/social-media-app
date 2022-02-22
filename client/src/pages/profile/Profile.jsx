@@ -16,6 +16,8 @@ export default function Profile() {
   useEffect(() => {
     const fetchUser = async () => {
 
+
+
       const res = await axios.get(`/users?username=${username}`);
       setUser(res.data);
       return res.data;
@@ -27,6 +29,7 @@ export default function Profile() {
     return "loading";
   }
   
+
   return (
     <>
       <Topbar />
