@@ -1,5 +1,5 @@
 import "./share.css";
-import {PermMedia, Label,Room, EmojiEmotions} from "@material-ui/icons"
+import {PermMedia, Label,Room, EmojiEmotions, Cancel} from "@material-ui/icons"
 import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -13,7 +13,8 @@ export default function Share() {
   const desc = useRef();
   const [file, setFile] = useState(null);
 
-
+  
+  // FIXME: Empty array desc click prevent
   const submitHandler = async (e) => {
     e.preventDefault();
     const newPost = {
@@ -57,7 +58,13 @@ export default function Share() {
             className="shareInput"
           />
         </div>
-        <hr className="shareHr"/>
+        <hr className="shareHr" />
+        {file && (
+          <div className="shareImgContainer">
+            <img src={URL.createObjectURL(file)} alt="" className="shareImg" />
+            <Cancel className="shareCancelImg" onClick={() => setFile(false)} />
+          </div>
+        )}
         <form className="shareBottom" onSubmit={submitHandler}>
             <div className="shareOptions">
                 <label htmlFor="file" className="shareOption">
