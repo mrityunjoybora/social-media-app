@@ -1,2 +1,2 @@
 # social-media-app
-A MERN stack Social Media App
+A MERN stack Social Media App!
