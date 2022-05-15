@@ -6,7 +6,6 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Topbar() {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const PFCLIENT = process.env.REACT_APP_PUBLIC_FOLDER_CLIENT;
   const { user } = useContext(AuthContext);
 
   return ( 

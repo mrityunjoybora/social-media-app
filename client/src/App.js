@@ -12,7 +12,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 
-axios.defaults.baseURL = "http://localhost:8000/api";
+axios.defaults.baseURL = process.env.REACT_APP_AXIOS_BASE_URL;
 
 // Navigate,
 function App() {
