@@ -57,8 +57,9 @@ try {
  
 app.use("/images", express.static(path.join(__dirname, "public/images")));
 
-app.listen(8000, () => {
-  console.log("Backend server is running");
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
+
 
 
